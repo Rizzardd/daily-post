@@ -97,5 +97,3 @@ function App() {
 ```
 
 
-[logo daily post](https://github.com/Rizzardd/daily-post/assets/87292423/594b8a63-dd9d-4d2f-8419-0890f698bb4e)
-
