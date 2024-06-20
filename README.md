@@ -83,17 +83,3 @@ No diretório do projeto, você pode executar os seguintes scripts:
 - `yarn start:dev` : Inicia o servidor.
 - `yarn dev` : Inicia o servidor web.
 
-
-
-
-## Uso/Exemplos
-
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
-
