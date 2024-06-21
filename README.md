@@ -40,7 +40,7 @@ Navegue até a pasta do projeto e instale as dependências usando o Yarn:
 
 ```bash
 cd daily-post
-yarn i
+yarn install
 ```
 
 Rodando o Servidor
@@ -79,7 +79,7 @@ obs: o NestJS abre a porta de servidor geralmente como: [http://localhost:5173/]
 ## Scripts Disponíveis
 
 No diretório do projeto, você pode executar os seguintes scripts:
-- `yarn i` : Instala as depen dependências do projeto.
+- `yarn install` : Instala as dependências do projeto.
 - `yarn start:dev` : Inicia o servidor.
 - `yarn dev` : Inicia o servidor web.
 
