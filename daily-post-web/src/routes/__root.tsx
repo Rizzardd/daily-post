@@ -5,12 +5,14 @@ import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Suspense } from "react";
 
+import customTheme from '../resources/theme/theme'
+
 const queryClient = new QueryClient();
 
 export const Route = createRootRoute({
   component: () => (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
+      <ChakraProvider theme={customTheme}>
         <AppRoot />
       </ChakraProvider>
     </QueryClientProvider>
