@@ -6,7 +6,7 @@ export const http = axios.create({
 });
 
 http.interceptors.request.use((value) => {
-  var accessToken = localStorage.getItem("auth:acess_token")
+  const accessToken = localStorage.getItem("auth:acess_token")
 
   if (accessToken) {
     value.headers.Authorization = `Bearer ${accessToken}`;
