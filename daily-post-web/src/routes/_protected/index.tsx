@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_protected/')({
-  component: () => <div>Hello EU SOU O PROTEGIDO!/!</div>
-})
+
+export const Route = createFileRoute("/_protected/")({
+  component: () => 
+   <div>a</div>
+});
