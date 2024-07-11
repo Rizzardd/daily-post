@@ -2,7 +2,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Suspense } from "react";
 
 import customTheme from "../resources/theme/theme";
@@ -23,7 +22,6 @@ function AppRoot() {
   return (
     <>
       <Outlet />
-      <TanStackRouterDevtools />
       <Suspense fallback={null}>
         <ReactQueryDevtools initialIsOpen={false} />
       </Suspense>
