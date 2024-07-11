@@ -1,11 +1,11 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Suspense } from "react";
 
-import customTheme from '../resources/theme/theme'
+import customTheme from "../resources/theme/theme";
 
 const queryClient = new QueryClient();
 
@@ -22,18 +22,6 @@ export const Route = createRootRoute({
 function AppRoot() {
   return (
     <>
-      <div className="p-2 flex gap-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>{" "}
-        <Link to="/about" className="[&.active]:font-bold">
-          About
-        </Link>
-        <Link to="/auth/login" className="[&.active]:font-bold">
-          Login
-        </Link>
-      </div>
-      <hr />
       <Outlet />
       <TanStackRouterDevtools />
       <Suspense fallback={null}>
