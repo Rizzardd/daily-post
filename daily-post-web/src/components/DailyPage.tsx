@@ -4,7 +4,7 @@ import { FiSquare, FiCircle, FiTriangle, FiPlus } from 'react-icons/fi';
 export default function DailyPage() {
     return (
         <Box p="4">
-        <Text fontSize="xl" fontWeight="bold">Calendário</Text>
+
         <HStack spacing="4" mt="4">
           <Text fontSize="md">Dailies</Text>
           <Spacer />
