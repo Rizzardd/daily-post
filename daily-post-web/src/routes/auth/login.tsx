@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { http } from "../../infra/http";
 import { useState } from "react";
 import { useAuthStore } from "../../stores/auth.store";
@@ -27,8 +27,8 @@ export const Route = createFileRoute("/auth/login")({
 });
 
 function LoginPage() {
+  
   const { accessToken, updateAccessToken } = useAuthStore();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isPending, isError, mutateAsync } = useMutation({
@@ -47,7 +47,7 @@ function LoginPage() {
       return data.access_token as string;
     },
   });
-
+  const navigate = useNavigate();
   return (
     <Center minH="100vh" bg="gray.800">
       <Flex
@@ -69,9 +69,9 @@ function LoginPage() {
         >
           <VStack spacing={4} align="stretch">
             <Text fontSize="2xl" fontWeight="bold">
-              Bem Vindo ao {" "}
+              Bem Vindo ao{" "}
               <Text as="span" color="blue.500">
-                Daily 
+                Daily
               </Text>
               <Text as="span" color="white" ml={1}>
                 Post!
@@ -114,6 +114,7 @@ function LoginPage() {
               onClick={async () => {
                 const result = await mutateAsync({ email, password });
                 updateAccessToken(result);
+                navigate({ to: "/" });
               }}
             >
               Entrar
@@ -121,7 +122,10 @@ function LoginPage() {
             <HStack justify="center" width="full">
               <Text>ou</Text>
             </HStack>
-            <Button colorScheme="blue" variant="outline" width="full">
+            <Button colorScheme="blue" variant="outline" width="full"  onClick={async () => {
+              
+                navigate({ to: "/auth/register" });
+              }} >
               Registrar
             </Button>
           </VStack>
