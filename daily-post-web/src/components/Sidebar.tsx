@@ -1,7 +1,32 @@
-import { Box, VStack, Avatar, Text, Icon, Link, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Avatar,
+  Text,
+  Icon,
+  Link,
+  Flex,
+  IconButton,
+  Tooltip,
+} from "@chakra-ui/react";
+import { useNavigate } from "@tanstack/react-router";
 import { FiHome, FiCalendar, FiList, FiPlus } from "react-icons/fi";
+import { IoIosLogOut } from "react-icons/io";
+import { useAuthStore } from "../stores/auth.store";
+import { useQuery } from "@tanstack/react-query";
+import { http } from "../infra/http";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const { isLoading, data } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const { data } = await http.get("user/me");
+      return data;
+    },
+  });
+  const { clearAccessToken } = useAuthStore();
+
   return (
     <Box
       bg="gray.900"
@@ -19,6 +44,7 @@ export default function Sidebar() {
         </Text>
         <VStack align="start" spacing="4">
           <Link
+            onClick={() => navigate({ to: "/" })}
             display="flex"
             alignItems="center"
             _hover={{ textDecoration: "none", color: "gray.400" }}
@@ -35,6 +61,7 @@ export default function Sidebar() {
           <Link
             display="flex"
             alignItems="center"
+            onClick={() => navigate({ to: "/daily" })}
             _hover={{ textDecoration: "none", color: "gray.400" }}
           >
             <Icon as={FiList} mr="2" /> Dailies
@@ -62,8 +89,23 @@ export default function Sidebar() {
         </VStack>
       </Box>
       <Flex align="center" mt="auto">
-        <Avatar size="sm" name="Luna Salles" src="path-to-avatar" />
-        <Text ml="2">Luna Salles</Text>
+        <Avatar size="sm" name={data?.name ?? ""} src="path-to-avatar" />
+        <Text flex={1} ml="2">
+          {isLoading ? "..." : data?.name}
+        </Text>
+        <Tooltip label="Sair">
+          <IconButton
+            onClick={() => {
+              clearAccessToken();
+              navigate({ to: "/auth/login" });
+            }}
+            variant="ghost"
+            colorScheme="white"
+            aria-label="Call Sage"
+            fontSize="20px"
+            icon={<IoIosLogOut />}
+          />
+        </Tooltip>
       </Flex>
     </Box>
   );
