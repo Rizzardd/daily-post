@@ -10,7 +10,8 @@ const theme = extendTheme({
   config,
   colors: {
     backgroundLoginImg: '#8b7af6',  
-    backgroundBoxLogin: '#63676f'
+    backgroundBoxLogin: '#63676f',
+    backgroundHomePage: '#404562'
 
   },
 });
