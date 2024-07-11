@@ -8,6 +8,7 @@ import { User, UserSchema } from './user/user.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
+import { DailyModule } from './daily/daily.module';
 
 @Module({
   imports: [
@@ -17,11 +18,13 @@ import { AuthGuard } from './auth/auth.guard';
     ),
     UserModule,
     AuthModule,
+    DailyModule,
     JwtModule.register({
       global: true,
       secret: 'mycatplayspiano',
       signOptions: { expiresIn: '2y' },
     }),
+    DailyModule,
   ],
   controllers: [AppController],
   providers: [
