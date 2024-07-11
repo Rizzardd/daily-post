@@ -20,6 +20,7 @@ import { useAuthStore } from "../../stores/auth.store";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { FiUser } from "react-icons/fi";
+import { http } from "../../infra/http";
 
 export const Route = createFileRoute("/auth/register")({
   component: () => <RegisterPage />,
@@ -38,8 +39,8 @@ function RegisterPage() {
       email: string;
       password: string;
     }) => {
-      const { data } = await http.post("/auth/signin", {
-        nome: nome,
+      const { data } = await http.post("/auth/signup", {
+        name: nome,
         email: email,
         password: password,
       });
