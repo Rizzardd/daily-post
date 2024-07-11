@@ -1,22 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Box, Stack } from "@chakra-ui/react";
-import Sidebar from "../../components/Sidebar";
-import Header from "../../components/Header";
-import DailyPage from "../../components/DailyPage";
-
+import { DailyListView } from "../../components/DailyListView";
 
 export const Route = createFileRoute("/_protected/")({
-  component: () => 
-   <div>
-        <Stack direction={["column", "row"]} spacing={0} bg="backgroundHomePage">
-        <Box>
-          <Sidebar />
-        </Box>
-        <Box w="100%">
-          <Header />
-          <DailyPage/>
-        </Box>
-        
-      </Stack>
-   </div>
+  component: () => <DailyListPage />,
 });
+
+export function DailyListPage() {
+  return <DailyListView />;
+}
