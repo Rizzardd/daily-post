@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
+import { Route as ProtectedImport } from './routes/_protected'
 import { Route as ProtectedIndexImport } from './routes/_protected/index'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLoginImport } from './routes/auth/login'
@@ -24,9 +25,14 @@ const AboutRoute = AboutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ProtectedRoute = ProtectedImport.update({
+  id: '/_protected',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ProtectedIndexRoute = ProtectedIndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => ProtectedRoute,
 } as any)
 
 const AuthRegisterRoute = AuthRegisterImport.update({
@@ -41,13 +47,20 @@ const AuthLoginRoute = AuthLoginImport.update({
 
 const ProtectedDailyRoute = ProtectedDailyImport.update({
   path: '/daily',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => ProtectedRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ProtectedImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -60,7 +73,7 @@ declare module '@tanstack/react-router' {
       path: '/daily'
       fullPath: '/daily'
       preLoaderRoute: typeof ProtectedDailyImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof ProtectedImport
     }
     '/auth/login': {
       id: '/auth/login'
@@ -81,7 +94,7 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof ProtectedIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof ProtectedImport
     }
   }
 }
@@ -89,11 +102,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
+  ProtectedRoute: ProtectedRoute.addChildren({
+    ProtectedDailyRoute,
+    ProtectedIndexRoute,
+  }),
   AboutRoute,
-  ProtectedDailyRoute,
   AuthLoginRoute,
   AuthRegisterRoute,
-  ProtectedIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -104,10 +119,16 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/_protected",
         "/about",
-        "/_protected/daily",
         "/auth/login",
-        "/auth/register",
+        "/auth/register"
+      ]
+    },
+    "/_protected": {
+      "filePath": "_protected.tsx",
+      "children": [
+        "/_protected/daily",
         "/_protected/"
       ]
     },
@@ -115,7 +136,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "about.tsx"
     },
     "/_protected/daily": {
-      "filePath": "_protected/daily.tsx"
+      "filePath": "_protected/daily.tsx",
+      "parent": "/_protected"
     },
     "/auth/login": {
       "filePath": "auth/login.tsx"
@@ -124,7 +146,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "auth/register.tsx"
     },
     "/_protected/": {
-      "filePath": "_protected/index.tsx"
+      "filePath": "_protected/index.tsx",
+      "parent": "/_protected"
     }
   }
 }
