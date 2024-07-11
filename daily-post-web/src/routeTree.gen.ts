@@ -15,7 +15,6 @@ import { Route as AboutImport } from './routes/about'
 import { Route as ProtectedIndexImport } from './routes/_protected/index'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLoginImport } from './routes/auth/login'
-import { Route as ProtectedProtectedImport } from './routes/_protected/_protected'
 
 // Create/Update Routes
 
@@ -39,11 +38,6 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProtectedProtectedRoute = ProtectedProtectedImport.update({
-  id: '/_protected/_protected',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -53,13 +47,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/_protected/_protected': {
-      id: '/_protected/_protected'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof ProtectedProtectedImport
       parentRoute: typeof rootRoute
     }
     '/auth/login': {
@@ -104,7 +91,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/about",
-        "/_protected/_protected",
         "/auth/login",
         "/auth/register",
         "/_protected/"
@@ -112,9 +98,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/about": {
       "filePath": "about.tsx"
-    },
-    "/_protected/_protected": {
-      "filePath": "_protected/_protected.tsx"
     },
     "/auth/login": {
       "filePath": "auth/login.tsx"
