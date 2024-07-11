@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Box, Stack } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
+import DailyPage from "../../components/DailyPage";
 
 
 export const Route = createFileRoute("/_protected/")({
@@ -13,7 +14,9 @@ export const Route = createFileRoute("/_protected/")({
         </Box>
         <Box w="100%">
           <Header />
+          <DailyPage/>
         </Box>
+        
       </Stack>
    </div>
 });
